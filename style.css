@@ -1,0 +1,329 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #0a0a0a;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    position: relative;
+}
+
+.glass {
+    position: relative;
+    width: 180px;
+    height: 300px;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0.05) 50%,
+        rgba(255, 255, 255, 0.1) 100%
+    );
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px 20px 50px 50px;
+    overflow: hidden;
+    margin: 0 auto 20px;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2);
+    transition: box-shadow 0.5s ease-in-out;
+}
+
+.glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.1));
+    transform: skewX(-15deg);
+    transition: transform 0.5s ease;
+}
+
+.glass.flashlight-on::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    width: 100px;
+    height: 40px;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(255, 204, 102, 1) 0%,
+        rgba(255, 204, 102, 0.4) 60%,
+        transparent 80%
+    );
+    transform: translateX(-50%);
+    box-shadow: 0 -10px 40px 20px rgba(255, 204, 102, 0.7);
+}
+
+.glass.flashlight-on::before {
+    transform: skewX(-15deg) translateX(150%);
+}
+
+.hand {
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    font-size: 40px;
+    transform: translateX(-50%) rotate(0deg);
+    transition: transform 0.7s ease;
+}
+
+.hand.active {
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.water {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(
+        180deg,
+        #004d66 0%,
+        #002633 100%
+    );
+    animation: wave 3s ease-in-out infinite;
+}
+
+@keyframes wave {
+    0%, 100% {
+        transform: translateY(0) skewY(0.5deg);
+    }
+    50% {
+        transform: translateY(-3px) skewY(-0.5deg);
+    }
+}
+
+.water.bubbling::before,
+.water.bubbling::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    bottom: 0;
+    animation: bubble 2.5s ease-out forwards;
+}
+
+.water.bubbling::before {
+    left: 25%;
+    animation-delay: 0.3s;
+}
+
+.water.bubbling::after {
+    left: 75%;
+    animation-delay: 0.5s;
+}
+
+@keyframes bubble {
+    0% {
+        transform: translateY(0);
+        opacity: 0.9;
+    }
+    100% {
+        transform: translateY(-150px);
+        opacity: 0;
+    }
+}
+
+.water.mixed {
+    animation: mix 8s ease-in-out forwards, wave 3s ease-in-out infinite;
+}
+
+@keyframes mix {
+    0% {
+        background: linear-gradient(
+            180deg,
+            #004d66 0%,
+            #002633 100%
+        );
+    }
+    100% {
+        background: linear-gradient(
+            180deg,
+            #fffacd 0%,
+            #f0e68c 100%
+        );
+    }
+}
+
+.turmeric-particles {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.turmeric-particles::before,
+.turmeric-particles::after,
+.turmeric-particles .particle1,
+.turmeric-particles .particle2,
+.turmeric-particles .particle3,
+.turmeric-particles .particle4,
+.turmeric-particles .particle5,
+.turmeric-particles .particle6 {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #ffd700;
+    border-radius: 50%;
+    visibility: hidden;
+    box-shadow: 0 0 10px 4px rgba(255, 215, 0, 0.9);
+    will-change: transform, opacity;
+}
+
+.turmeric-particles.active::before,
+.turmeric-particles.active::after,
+.turmeric-particles.active .particle1,
+.turmeric-particles.active .particle2,
+.turmeric-particles.active .particle3,
+.turmeric-particles.active .particle4,
+.turmeric-particles.active .particle5,
+.turmeric-particles.active .particle6 {
+    visibility: visible;
+    opacity: 0.95;
+    animation: fall 5s ease-out infinite;
+    -webkit-animation: fall 5s ease-out infinite;
+    -moz-animation: fall 5s ease-out infinite;
+}
+
+.turmeric-particles.active::before {
+    left: 15%;
+    animation-delay: 0.1s;
+    -webkit-animation-delay: 0.1s;
+    -moz-animation-delay: 0.1s;
+}
+
+.turmeric-particles.active::after {
+    left: 30%;
+    animation-delay: 0.2s;
+    -webkit-animation-delay: 0.2s;
+    -moz-animation-delay: 0.2s;
+}
+
+.turmeric-particles.active .particle1 {
+    left: 45%;
+    animation-delay: 0.3s;
+    -webkit-animation-delay: 0.3s;
+    -moz-animation-delay: 0.3s;
+}
+
+.turmeric-particles.active .particle2 {
+    left: 60%;
+    animation-delay: 0.4s;
+    -webkit-animation-delay: 0.4s;
+    -moz-animation-delay: 0.4s;
+}
+
+.turmeric-particles.active .particle3 {
+    left: 75%;
+    animation-delay: 0.5s;
+    -webkit-animation-delay: 0.5s;
+    -moz-animation-delay: 0.5s;
+}
+
+.turmeric-particles.active .particle4 {
+    left: 25%;
+    animation-delay: 0.6s;
+    -webkit-animation-delay: 0.6s;
+    -moz-animation-delay: 0.6s;
+}
+
+.turmeric-particles.active .particle5 {
+    left: 50%;
+    animation-delay: 0.7s;
+    -webkit-animation-delay: 0.7s;
+    -moz-animation-delay: 0.7s;
+}
+
+.turmeric-particles.active .particle6 {
+    left: 80%;
+    animation-delay: 0.8s;
+    -webkit-animation-delay: 0.8s;
+    -moz-animation-delay: 0.8s;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-80px);
+        opacity: 0.95;
+    }
+    100% {
+        transform: translateY(180px);
+        opacity: 0.7;
+    }
+}
+
+@-webkit-keyframes fall {
+    0% {
+        transform: translateY(-80px);
+        opacity: 0.95;
+    }
+    100% {
+        transform: translateY(180px);
+        opacity: 0.7;
+    }
+}
+
+@-moz-keyframes fall {
+    0% {
+        transform: translateY(-80px);
+        opacity: 0.95;
+    }
+    100% {
+        transform: translateY(180px);
+        opacity: 0.7;
+    }
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #555;
+}
+
+footer {
+    position: absolute;
+    bottom: 10px;
+    color: #fff;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    opacity: 0.7;
+}
+
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 32px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+    pointer-events: none;
+}
+
+.overlay-text.active {
+    opacity: 1;
+}
